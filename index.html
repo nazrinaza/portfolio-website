@@ -97,6 +97,10 @@
             color: var(--text-primary);
         }
 
+        .nav-links a.active {
+            color: var(--accent-primary);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -108,7 +112,8 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -813,6 +818,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="logos.html">Logos</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
