@@ -1113,9 +1113,9 @@
         const btnLoading = submitBtn.querySelector('.btn-loading');
 
         // Configure your backend URL here
-        // For local testing: http://localhost:8000/submit
-        // For production: your deployed backend URL
-        const BACKEND_URL = '/api/submit'; // Update this when deployed
+        // For local testing with PHP built-in server: http://localhost:8000/backend/contact.php
+        // For production: your PHP hosting URL (e.g., https://yourdomain.com/backend/contact.php)
+        const BACKEND_URL = '/backend/contact.php'; // Update this to your actual PHP hosting URL
 
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
