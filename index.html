@@ -530,6 +530,135 @@
             margin-bottom: 40px;
         }
 
+        /* Contact Form Styles */
+        .contact-form-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group label::after {
+            content: ' *';
+            color: var(--accent-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 16px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            justify-content: center;
+            position: relative;
+            padding: 18px 36px;
+            font-size: 1.05rem;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-status {
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        .form-status.success {
+            display: block;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #4caf50;
+        }
+
+        .form-status.error {
+            display: block;
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+
+        .contact-divider {
+            position: relative;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .contact-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .contact-divider span {
+            position: relative;
+            background: var(--bg-dark);
+            padding: 0 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .contact-links {
             display: flex;
             justify-content: center;
@@ -872,6 +1001,53 @@
                 <span class="section-label">Get In Touch</span>
                 <h3>Let's Work Together</h3>
                 <p>Have a project in mind or want to collaborate? I'd love to hear from you. Let's create something amazing together.</p>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" name="name" required placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" name="company" placeholder="Your company">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required placeholder="your@email.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display:none;">Sending...</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                        <div class="form-status" id="formStatus"></div>
+                    </form>
+                </div>
+                
+                <div class="contact-divider">
+                    <span>OR</span>
+                </div>
+                
                 <div class="contact-links">
                     <a href="https://github.com/nazrinaza" class="contact-link" target="_blank">
                         <span class="contact-link-icon">🐙</span>
@@ -926,6 +1102,74 @@
                 nav.style.background = 'rgba(10, 10, 10, 0.98)';
             } else {
                 nav.style.background = 'rgba(10, 10, 10, 0.9)';
+            }
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+        const submitBtn = contactForm.querySelector('.btn-submit');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+
+        // Configure your backend URL here
+        // For local testing: http://localhost:8000/submit
+        // For production: your deployed backend URL
+        const BACKEND_URL = '/api/submit'; // Update this when deployed
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+            formStatus.className = 'form-status';
+            formStatus.textContent = '';
+
+            // Gather form data
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+
+            try {
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    formStatus.className = 'form-status success';
+                    formStatus.textContent = result.message || 'Message sent successfully!';
+                    contactForm.reset();
+                } else {
+                    throw new Error(result.error || 'Failed to send message');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                formStatus.className = 'form-status error';
+                formStatus.textContent = error.message || 'Sorry, something went wrong. Please try again or email me directly.';
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+
+                // Clear status after 5 seconds
+                setTimeout(() => {
+                    formStatus.className = 'form-status';
+                    formStatus.textContent = '';
+                }, 5000);
             }
         });
 
